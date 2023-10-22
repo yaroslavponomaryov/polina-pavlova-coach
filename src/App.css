@@ -2,16 +2,29 @@ body {
   font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 0;
   padding:0;
-  border: 2px solid black;
+  /* border: 2px solid black; */
+}
+
+.main-page-block {
+  max-width: 100vw;
+  margin-top: 2em;
 }
 
 .container {
-  background-color: none;
+  max-width: 100vw;
+  margin: 1em;
+  margin-top: 2em;
+  text-align: justify;
   /* border: 2px solid red; */
+}
+.main-body-text {
+  max-width: 100vw;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
 }
 
 #header-logo {
-  scale: 80%;
+  scale: 85%;
   /* border: 2px solid red; */
 }
 
@@ -24,14 +37,25 @@ body {
 }
 
 #navbar {
+  margin-left: 0;
   background-color: rgba(255, 255, 255, 0.979);
-  height:3rem;
-	position: -webkit-sticky;
+  height: fit-content;
+  padding: 0.5em;
 	position: sticky;
+  z-index: 100;
 	top: 0;
+  text-align: center;
+}
+#navbar > ul {
+  max-width: 100vw
+}
+
+#navbar > ul > li {
+  padding: 0.5em;
 }
 
 .navlink {
+  text-align: justify;
   color:black;
   padding: 1rem;
   text-decoration: none;
@@ -47,8 +71,14 @@ body {
 	        transform: scale(1.5);
 }
 
+.show-hide-btn {
+  /* align-self: flex-end; */
+  margin: 0.5em;
+  display: inline-block;
+}
+
 #header-pic {
-  margin-top: 1rem;
+  /* margin-top: 0.3rem; */
   max-width: 100%;
   min-width: 100%;
 }
@@ -73,6 +103,71 @@ body {
   text-align: center;
 }
 
-@media screen {
-  
+.fade-in {
+  opacity: 0; /* начальное значение непрозрачности */
+  animation: fadeIn ease-in 1; /* добавляем анимацию fadeIn */
+  animation-fill-mode: forwards; /* будет видимым после завершения анимации */
+  animation-duration: 0.8s; /* длительность анимации в 1 секунду */
+}
+
+.none-display {
+  opacity: 0;
+}
+
+#contact-list {
+  max-width: 100vw;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+#contact-list > li {
+  margin: 1em;
+}
+
+#contact-list > li > a {
+  color: black;
+  text-decoration: none;
+}
+
+
+#contact-list > li > a:hover {
+  color: rgb(0, 59, 0);
+  text-shadow: 0.1em 0.1em 0.1em greenyellow;
+	-webkit-transform: scale(1.5);
+	        transform: scale(1.5);
+}
+
+.telegram {
+  scale: 85%;
+}
+
+/* .telegram {
+  background-image: url('https://telegram.org/favicon.ico');
+} */
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 768px) {
+
+  #navbar {
+    flex-direction: column;
+  }
+
+  #navbar > ul {
+    flex-direction: column;
+  }
+
 }
