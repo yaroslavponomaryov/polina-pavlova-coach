@@ -9,6 +9,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 
 const Navigation = () => {
+  console.log(localStorage.loggedAs)
     const {user, setUser} = useContext(UserContext)
 
     const [isMobile, setIsMobile] = useState(window.innerWidth<=768)
@@ -67,7 +68,7 @@ const Navigation = () => {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="justify-content-center">
             <Nav.Link href="/">Home</Nav.Link>
-            <Nav.Link href="/blog" disabled>Blog</Nav.Link>
+            <Nav.Link href="/blog">Blog</Nav.Link>
             {/* <NavDropdown title="Dropdown" id="basic-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.2">
@@ -81,7 +82,7 @@ const Navigation = () => {
             </NavDropdown> */}
           </Nav>
         </Navbar.Collapse>
-        {localStorage.loggedAs!=='Anonymous'? (
+        {localStorage.loggedAs && localStorage.loggedAs !=='Anonymous'? (
         <Navbar.Collapse className="justify-content-end">
           <Navbar.Text>
             {/* Signed in as: */}

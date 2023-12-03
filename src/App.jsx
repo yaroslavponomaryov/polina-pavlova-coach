@@ -13,6 +13,7 @@ import { useContext } from 'react'
 import { UserContext } from './contexts/UserContext'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { fetchAllMainSections } from './db/queries'
+import Article from './components/Article'
 
 function App() {
 
@@ -60,7 +61,12 @@ function App() {
       <Navigation />
         <Routes>
           <Route exact path="/" element={<Main content={content}/>} />
-          <Route path="/blog" element={<Blog />} />
+
+          <Route path="/blog">
+            <Route path='' element={<Blog />} />
+            <Route path=':article_id' element={<Article />}/>
+          </Route>
+
           <Route path="/signin" element={<Login />} />
         </Routes>
     </BrowserRouter>

@@ -1,10 +1,8 @@
-import Article from "./Article"
+import ArticleList from "./ArticleList"
 
 const Blog = () => {
     return (
-        <section >
-            <Article/>
-        </section>
+            <ArticleList/>
     )
 }
 

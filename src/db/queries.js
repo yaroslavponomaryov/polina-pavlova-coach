@@ -33,3 +33,31 @@ export async function updateMainSection (newHeader, newBody, id) {
         .update({ title: newHeader, body: newBody })
         .eq('_id', id)
 }
+
+export async function fetchAllArticles () {
+    const { data:articles, error:fetchingError } = await supabase
+        .from('articles')
+        .select()
+
+    if (fetchingError) {
+        return fetchingError
+    } else {
+        return articles
+    }
+}
+
+export async function getArticleById (id) {
+    
+    const { data:blogArticle, error } = await supabase
+    .from('articles')
+    .select()
+    .eq('_id', id)
+    if (error) {
+        return error
+    } if (blogArticle.length === 0) {
+        throw {code: '404', details: null, hint: null, message: 'Not found'}
+    }
+    else {
+        return blogArticle
+    }
+}

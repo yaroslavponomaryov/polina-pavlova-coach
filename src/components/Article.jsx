@@ -1,16 +1,36 @@
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { getArticleById } from "../db/queries";
+
 const Article = () => {
-    return (
+    const {article_id} = useParams();
+    const [article, setArticle] = useState({});
+    const [isLoading, setIsLoading] = useState(true)
+    const [isError, setIsError] = useState(undefined)
+
+    useEffect(()=>{
+        getArticleById(article_id)
+        .then ((blogArticle)=>{
+            setArticle(blogArticle[0])
+        })
+        .then(()=>{
+            setIsLoading(false)
+        })
+        .catch((err)=>{
+            setIsError(err)
+        })
+    }, [])
+
+    return isLoading || !article? null : (
         <main>
             <section>
-                <h1>Fab article name</h1>
+                <h1>{article.title}</h1>
             </section>
             <section>
-                <img src="" alt="" />
+                <img src={article.img_url} alt='Blog article cover' />
             </section>
             <section>
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laudantium debitis enim atque, molestiae vero non delectus! Quaerat, nemo eaque! Fugiat natus a laudantium assumenda cum culpa molestias esse maxime eius?</p>
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laudantium debitis enim atque, molestiae vero non delectus! Quaerat, nemo eaque! Fugiat natus a laudantium assumenda cum culpa molestias esse maxime eius?</p>
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laudantium debitis enim atque, molestiae vero non delectus! Quaerat, nemo eaque! Fugiat natus a laudantium assumenda cum culpa molestias esse maxime eius?</p>
+                {article.body}
             </section>
         </main>
     )
