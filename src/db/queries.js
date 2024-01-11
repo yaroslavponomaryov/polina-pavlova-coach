@@ -1,3 +1,4 @@
+import { geneateArticleCoverName } from "../utils";
 import supabase from "./connection";
 
 
@@ -60,4 +61,69 @@ export async function getArticleById (id) {
     else {
         return blogArticle
     }
+}
+
+export async function insertArticle (article) {
+    const { data:response, error } = await supabase
+    .from('articles')
+    .insert(article)
+    if (error) {
+        return error;
+    } else {
+        return response;
+    }
+}
+
+export async function uploadArticleCover (avatarFile, filename) {
+    
+    const { data, error } = await supabase
+      .storage
+      .from('content')
+      .upload(`article-covers/${filename}.jpg`, avatarFile, {
+        cacheControl: '3600',
+        upsert: true
+      })
+
+    if (error) {
+        return error
+    } else {
+        return data
+    }
+}
+
+
+export async function getArticleCoverUrl (path) {
+    const { data } = supabase
+    .storage
+    .from('content')
+    .getPublicUrl(`${path}`)
+
+    return data
+}
+
+export async function updateArticle (id, updateDataObject) {
+    const { data, error } = await supabase
+    .from('articles')
+    .update(updateDataObject)
+    .eq('_id', id)
+
+    if (error) {
+        return error
+    }
+}
+
+export async function removeArticleCover (existingFileName) {
+
+
+    const { data, error } = supabase
+    .storage
+    .from('content')
+    .remove(`article-covers/${existingFileName}`)
+
+    if (error) {
+        return error
+    } else {
+        return data
+    }
+
 }

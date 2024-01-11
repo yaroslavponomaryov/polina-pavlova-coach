@@ -19,10 +19,10 @@ const Main = ({content}) => {
         {/* <HeaderPic /> */}
         {content.length ? 
         (
-            <>
+            <main className="main-content">
             {content.sort((a,b)=>{return a._id-b._id}).map((sectionContent)=>{
                 return (
-                    <Row key={sectionContent._id}>
+                    <Row className="main-page-rows" key={sectionContent._id}>
                         <Col>
                             <MainSection sectionContent={sectionContent}/>
                         </Col>
@@ -30,12 +30,12 @@ const Main = ({content}) => {
                 )
 
             })}
-     <Row>
+     <Row className="main-page-rows">
                      <Col>
                          <Contact/>
                      </Col>
                  </Row>
-            </>
+            </main>
         )
 
 
@@ -61,7 +61,7 @@ const Main = ({content}) => {
             //         </Col>
             //     </Row>
             // </Container>
-        : <Spinner animation="border" />}
+        : <section className="no-posts-warning"><Spinner animation="border" /></section>}
         </>
 
     )

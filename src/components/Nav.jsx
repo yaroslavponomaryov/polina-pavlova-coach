@@ -9,7 +9,6 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 
 const Navigation = () => {
-  console.log(localStorage.loggedAs)
     const {user, setUser} = useContext(UserContext)
 
     const [isMobile, setIsMobile] = useState(window.innerWidth<=768)
@@ -69,6 +68,7 @@ const Navigation = () => {
           <Nav className="justify-content-center">
             <Nav.Link href="/">Home</Nav.Link>
             <Nav.Link href="/blog">Blog</Nav.Link>
+            <Nav.Link href="/blog" disabled={true}>Prices</Nav.Link>
             {/* <NavDropdown title="Dropdown" id="basic-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.2">
@@ -80,6 +80,13 @@ const Navigation = () => {
                 Separated link
               </NavDropdown.Item>
             </NavDropdown> */}
+            <NavDropdown title="Book Consultation" id="basic-nav-dropdown">
+              <NavDropdown.Item href="https://calendly.com/108pavlova/consulting" target="_blank">English</NavDropdown.Item>
+              <NavDropdown.Divider />
+              <NavDropdown.Item href="https://calendly.com/108pavlova/jyotish-reading" target="_blank">
+              Українською
+              </NavDropdown.Item>
+            </NavDropdown>
           </Nav>
         </Navbar.Collapse>
         {localStorage.loggedAs && localStorage.loggedAs !=='Anonymous'? (

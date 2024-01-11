@@ -1,71 +1,61 @@
 import { useEffect, useState } from 'react';
-import Card from 'react-bootstrap/Card';
-import CardGroup from 'react-bootstrap/CardGroup';
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
 import { fetchAllArticles } from '../db/queries';
-import Button from 'react-bootstrap/Button';
-import { Link } from "react-router-dom";
+import ArticleCard from './ArticleCard';
+import AddPost from './AddPost';
+import { Spinner } from 'react-bootstrap';
 
 
 
 const ArticleList = () => {
     const [articles, setArticles] = useState([])
+    const [modalActive, setModalActive] = useState(false)
+    let width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
 
     useEffect(()=>{
         fetchAllArticles()
-        .then((articles)=>{
-            setArticles(articles)
+        .then((data)=>{
+            if (data.length === 0) {
+                setArticles(null)
+            } else {
+                setArticles(data.reverse())
+
+
+            }
         })
     }, [])
 
 
-
-    return articles.length ? (
-        <CardGroup>
-            {articles.map((article, idx) => (
-                          <Card key={idx} >
-                          <Card.Img className='article-card-img' variant="top" src={article.img_url} />
-                          <Card.Body>
-                            <Card.Title>{article.title}</Card.Title>
-                            <Card.Text>
-                                {article.body.substring(0,150) + '...'}
-                            </Card.Text>
-                            <Link to={`/blog/${article._id}`} className="btn btn-primary">Read more...</Link>
-                          </Card.Body>
-                          <Card.Footer>
-                            <small className="text-muted">{article.date}</small>
-                          </Card.Footer>
-                        </Card>
-                )
-            )}
-        </CardGroup>
-
-
-    // <CardGroup>
-    //   {articles.map((article) => (
-    //     <Col key={article._id} >
-    //         <Card className="bg-dark text-white min-height no-border article-card">
-    //         <Card.Img src={article.img_url} alt="Card image" className='darken-img min-height' />
-    //         <Card.ImgOverlay className='auto-margin'>
-    //             <a href='#'>
-    //             <Card.Title>{article.title}</Card.Title>
-    //             <Card.Text>
-    //             {
-    //                 article.body.substring(0,150) + '...'
-    //             }
-    //             </Card.Text>
-    //             <Card.Text>Last updated: {article.date}</Card.Text>
-
-
-    //             </a>
-    //         </Card.ImgOverlay>
-    //         </Card>
-
-    //     </Col>
-    //   ))}
-    // </CardGroup>  
-    ) : null
+    return (
+        <>
+        <main className='flex-col'>
+            <section className='content'>
+                <div className='blog-options'>
+                    <a href='#' className='option-btn reset-lnk-style disabled-option'>Filter ▼</a>
+                    {localStorage.rights==="ADMIN"?(<a href="#" className='option-btn reset-lnk-style' onClick={()=>{setModalActive(true)}}>Add Post</a>):null}
+                </div>
+        {articles !== null ? (articles.length? (<ul className='reset-list-style' id='article-list'>
+            {
+                articles.map((article, idx) => {
+                    return <ArticleCard key={idx} title={article.title} img_url={article.img_url} id={article._id}></ArticleCard>
+                })
+            }
+        </ul>) : (
+            <section className='no-posts-warning'>
+                <Spinner animation="border" />
+            </section>
+            )) : (
+            <section className='no-posts-warning'>
+                <h1>Posts are coming soon...</h1>
+            </section>
+        
+        )}
+            </section>
+        </main>
+        {
+        localStorage.rights==="ADMIN"?(<AddPost active={modalActive} setActive={setModalActive}></AddPost>):(null)
+        }
+        </>
+    )
 }
 
 export default ArticleList
