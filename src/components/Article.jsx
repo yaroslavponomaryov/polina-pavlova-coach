@@ -38,7 +38,6 @@ const Article = () => {
             .then((data)=>{
                 getArticleCoverUrl(data.path)
                 .then((data)=>{
-                    console.log(data)
                     updateArticle(article_id, {img_url: `${data.publicUrl}`})
                     .then(()=>{
                         setImageIsLoading(false)
@@ -73,7 +72,7 @@ const Article = () => {
                     </div>
                     ):(
                         <section className='spinner-img-container'>
-                            <p>Don't reload the page untill uploading is complete!</p>
+                            <p>Don't reload the page untill uploading is completed!</p>
                         <Spinner animation="border" />
                     </section>
                     )}
