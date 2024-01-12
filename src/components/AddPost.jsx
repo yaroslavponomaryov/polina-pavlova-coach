@@ -38,10 +38,8 @@ const AddPost = ({active, setActive}) => {
                 <section className="input-section">
                     <label htmlFor="post-img-upload" >Image</label>
                     <input className="input-box grey-bg" type="file" accept=".jpg, .jpeg" id="post-img-upload" onChange={(e)=> {
-
                         const file = e.target.files[0]
-                            const fileName = geneateArticleCoverName()
-                            uploadArticleCover(file, fileName)
+                            uploadArticleCover(file, `${geneateArticleCoverName()}${file.name.match(/\.[^.]*$/)[0]}`)
                             .then ((data)=>{
                                 getArticleCoverUrl(data.path)
                                 .then((data)=>{

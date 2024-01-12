@@ -1,6 +1,7 @@
 body {
   height: 100vh;
   max-width: 100vw;
+
   font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 0;
   padding:0;
@@ -512,6 +513,10 @@ body {
   margin: 0em 0.1em 2em 0.1em;
 }
 
+.row-card {
+  width: 100%;
+}
+
 .row-card > h2 {
   color:black;
   font-size: .8em;
@@ -609,6 +614,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  text-align: center;
 }
 
 @media (max-width: 1300px) {
@@ -647,13 +653,14 @@ body {
     height: 8rem;
     max-width: 90vw;
     min-width: 90vw;
+    min-width: 280px;
     margin-top: 1em;
     margin-bottom: 1em;
   }
   
 
   .art-crd-text > h2 {
-    font-size: 1em;
+    font-size: 1rem;
   }
 
   .art-crd-text > p {
@@ -695,7 +702,7 @@ body {
   }
 
   #article-rec-card {
-    width:auto;
+    /* width:auto; */
     max-width: 40%;
   }
 
@@ -717,7 +724,19 @@ body {
   }
 
   
+  .article-card-img-container {
+    width: 50%;
+    height: 100%;
+    padding: 0.8em;
+  }
 
+  .art-crd-text {
+    word-break: normal;
+    width: 50%;
+    padding: 0.8em;
+  
+  }
+  
 
 }
 
@@ -743,6 +762,14 @@ body {
     max-width: 100%;
     word-break: normal;
     font-size: .9em;
+  }
+
+  .art-crd-text > h2 {
+    font-size: 0.9rem;
+  }
+
+  .art-crd-text > p {
+    font-size: 0.7em;
   }
 
 }

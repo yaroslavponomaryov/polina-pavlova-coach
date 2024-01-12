@@ -31,10 +31,11 @@ const Article = () => {
     
     
     const handleImageReplacing = (e) => {
+        const imgFile = e.target.files[0]
         setImageIsLoading(true)
         removeArticleCover(article.img_url.match(/[^/]*$/)[0])
         .then(()=>{
-            uploadArticleCover(e.target.files[0], geneateArticleCoverName())
+            uploadArticleCover(imgFile, `${geneateArticleCoverName()}${imgFile.name.match(/\.[^.]*$/)[0]}`)
             .then((data)=>{
                 getArticleCoverUrl(data.path)
                 .then((data)=>{
@@ -52,7 +53,7 @@ const Article = () => {
 
     return isLoading || !article? null : (
         <>
-        <input type="file" id="myFileInput" accept=".jpg, .jpeg" onChange={(e)=>{
+        <input type="file" id="myFileInput" accept=".jpg, .jpeg, .png" onChange={(e)=>{
             handleImageReplacing(e)
         }}/>
         <main className="article-layout">
@@ -62,13 +63,15 @@ const Article = () => {
                     {!imageIsLoading?(
                     <div className="img-btn-overlay">
                         <img className="post-cover-img" src={article.img_url} alt='Blog article cover' />
-                        <input type="button" className="img-replacing-btn" onClick={
-                            ()=>{
-                                document.getElementById('myFileInput').click()
-                            }
-                            
-                            
-                            } value="Replace the Image" />
+                        {localStorage.rights==="ADMIN"?(
+                            <input type="button" className="img-replacing-btn" onClick={
+                                ()=>{
+                                    document.getElementById('myFileInput').click()
+                                }
+                                
+                                
+                                } value="Replace the Image" />
+                        ):(null)}
                     </div>
                     ):(
                         <section className='spinner-img-container'>

@@ -37,7 +37,7 @@ export async function updateMainSection (newHeader, newBody, id) {
 
 export async function fetchAllArticles () {
     const { data:articles, error:fetchingError } = await supabase
-        .from('articles')
+        .from('articles_test')
         .select()
 
     if (fetchingError) {
@@ -50,7 +50,7 @@ export async function fetchAllArticles () {
 export async function getArticleById (id) {
     
     const { data:blogArticle, error } = await supabase
-    .from('articles')
+    .from('articles_test')
     .select()
     .eq('_id', id)
     if (error) {
@@ -65,7 +65,7 @@ export async function getArticleById (id) {
 
 export async function insertArticle (article) {
     const { data:response, error } = await supabase
-    .from('articles')
+    .from('articles_test')
     .insert(article)
     if (error) {
         return error;
@@ -79,7 +79,7 @@ export async function uploadArticleCover (avatarFile, filename) {
     const { data, error } = await supabase
       .storage
       .from('content')
-      .upload(`article-covers/${filename}.jpg`, avatarFile, {
+      .upload(`article-covers/${filename}`, avatarFile, {
         cacheControl: '3600',
         upsert: true
       })
@@ -103,7 +103,7 @@ export async function getArticleCoverUrl (path) {
 
 export async function updateArticle (id, updateDataObject) {
     const { data, error } = await supabase
-    .from('articles')
+    .from('articles_test')
     .update(updateDataObject)
     .eq('_id', id)
 
