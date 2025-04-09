@@ -20,3 +20,8 @@ export function filterContent (array, id) {
     return array.filter(sectionContent=>sectionContent._id===id)[0]
 
 }
+
+export function getCoverFileNameFromUrl (url) {
+    const fname = url.replace(/^(.*?)\/content\//, "")
+    return fname
+}

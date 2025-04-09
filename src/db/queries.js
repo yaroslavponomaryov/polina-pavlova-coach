@@ -1,5 +1,6 @@
 import { geneateArticleCoverName } from "../utils";
 import supabase from "./connection";
+import { getCoverFileNameFromUrl } from "./utils";
 
 
 export async function fetchUser (username) {
@@ -37,7 +38,7 @@ export async function updateMainSection (newHeader, newBody, id) {
 
 export async function fetchAllArticles () {
     const { data:articles, error:fetchingError } = await supabase
-        .from('articles_test')
+        .from('articles')
         .select()
 
     if (fetchingError) {
@@ -50,7 +51,7 @@ export async function fetchAllArticles () {
 export async function getArticleById (id) {
     
     const { data:blogArticle, error } = await supabase
-    .from('articles_test')
+    .from('articles')
     .select()
     .eq('_id', id)
     if (error) {
@@ -65,7 +66,7 @@ export async function getArticleById (id) {
 
 export async function insertArticle (article) {
     const { data:response, error } = await supabase
-    .from('articles_test')
+    .from('articles')
     .insert(article)
     if (error) {
         return error;
@@ -103,7 +104,7 @@ export async function getArticleCoverUrl (path) {
 
 export async function updateArticle (id, updateDataObject) {
     const { data, error } = await supabase
-    .from('articles_test')
+    .from('articles')
     .update(updateDataObject)
     .eq('_id', id)
 
@@ -112,18 +113,35 @@ export async function updateArticle (id, updateDataObject) {
     }
 }
 
-export async function removeArticleCover (existingFileName) {
+export async function removeArticleCover (coverUrl) {
 
 
+    const filePath = getCoverFileNameFromUrl(coverUrl)
     const { data, error } = supabase
     .storage
     .from('content')
-    .remove(`article-covers/${existingFileName}`)
+    .remove(filePath)
 
     if (error) {
         return error
     } else {
         return data
     }
+
+}
+
+export async function removeArticle (id) {
+
+    const { data:response, error } = await supabase
+    .from('articles')
+    .delete()
+    .eq('_id', id)
+    if (error) {
+
+        return error;
+    } else {
+        return response;
+    }
+
 
 }

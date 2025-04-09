@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react"
-import { getArticleCoverUrl, removeArticleCover, updateArticle, uploadArticleCover } from "../db/queries"
+import { getArticleCoverUrl, removeArticle, removeArticleCover, updateArticle, uploadArticleCover } from "../db/queries"
 import {articleValuesChanged, checkBodyLenght, checkTitleLenght, formatDate, geneateArticleCoverName } from "../utils";
 import { Spinner } from "react-bootstrap";
 
 const EditPost = ({active, setActive, id, article}) => {
     const defautTitle = article.title;
     const author = localStorage.loggedAs;
+    const imgUrl = article.img_url
     
     const [title, setTitle] = useState(article.title)
     const [imageFile, setImageFile] = useState(null)
@@ -37,6 +38,20 @@ const EditPost = ({active, setActive, id, article}) => {
             })
         }
 
+    }
+
+    const handleRemove = () => {
+        const articleId  = id
+
+        const removedArticle = removeArticle(articleId)
+        .then(()=>{
+            removeArticleCover(imgUrl)
+            .then(()=>{
+                window.location.href="/blog"
+            })
+        })
+
+        
     }
 
     return (
@@ -73,6 +88,9 @@ const EditPost = ({active, setActive, id, article}) => {
     
                     <section className="input-section submit-section">
                         <input id="post-submit-btn" className="post-submit" type="submit" value='SAVE' disabled={true}/>
+                        <input id="post-remove-btn" className="post-remove" type="submit" value='REMOVE' disabled={false} onClick={()=>{
+                            handleRemove()
+                        }}/>
                     </section>
                 </>):(textIsUpdated===false?(
                             <section className='spinner-container-modal'>
