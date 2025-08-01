@@ -81,13 +81,18 @@ const Navigation = () => {
               </NavDropdown.Item>
             </NavDropdown> */}
             {/* <Nav.Link href="https://calendly.com/108pavlova/consulting" target="_blank">Book Consultation</Nav.Link> */}
-            <NavDropdown title="Book Consultation" id="basic-nav-dropdown">
+
+            <Nav.Link href="https://calendar.app.google/YdeCzhaPV2L7Fn3C9" target="_blank">Book Consultation</Nav.Link>
+
+
+            {/* <NavDropdown title="Book Consultation" id="basic-nav-dropdown">
               <NavDropdown.Item href="https://calendly.com/108pavlova/consulting" target="_blank">English</NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item href="https://calendly.com/108pavlova/jyotish_ua_90min" target="_blank">
               Українською
               </NavDropdown.Item>
-            </NavDropdown>
+            </NavDropdown> */}
+            
           </Nav>
         </Navbar.Collapse>
         {localStorage.loggedAs && localStorage.loggedAs !=='Anonymous'? (
